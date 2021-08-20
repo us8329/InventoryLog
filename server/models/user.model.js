@@ -1,12 +1,14 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs');
+const passport = require('passport')
 const { stringify } = require('querystring');
+const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
-    username :{
-        type:String,
-        required: 'username can\'t be empty'
-    } ,
+    // username :{
+    //     type:String,
+    //     required: 'username can\'t be empty'
+    // } ,
     email :{
         type:String,
         required: 'email can\'t be empty',
@@ -37,6 +39,20 @@ userSchema.pre("save" , async function(next){
     }
     next();
 })
+
+userSchema.methods.verifyPassword = function (password) {
+    return bcrypt.compareSync(password , this.password)
+}
+
+userSchema.methods.generateJwt = function(){
+    return jwt.sign({ _id :this._id},
+        process.env.JWT_SECRET,
+        {
+            expiresIn : process.env.JWT_EXP
+        });
+    
+}
+
 // const Register = new
 mongoose.model("User",userSchema);
 // module.exports = Register ;

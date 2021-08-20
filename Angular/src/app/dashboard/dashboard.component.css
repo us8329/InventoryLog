@@ -1,0 +1,30 @@
+
+    .heading{
+        padding-top: 6px;
+    }
+    .userInfo{
+        text-align: center;
+    }
+    .row{
+        padding-top: 40px;
+    }
+    .modal-footer {
+        padding-top: 50px;
+      justify-content: center;
+    }
+    table , th, td{
+        padding-top: 40px;
+    }
+    #display th, #display td{
+        text-align: center;
+    }
+    .btn-sm{
+      color: white;
+      background-color: red;
+    }
+    .modal-dialog{
+        padding-top: 100px;
+    }
+    a{
+        color: white;
+    }

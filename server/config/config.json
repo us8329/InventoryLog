@@ -1,10 +1,13 @@
 {
     "development":{
         "PORT" : 4000,
-        "MONGODB_URI" : "mongodb://localhost:27017/CRUDdemo"
+        "MONGODB_URI" : "mongodb://localhost:27017/CRUDdemo",
+        "JWT_SECRET" : "SECRET#123",
+        "JWT_EXP" : "2m"
     },
     "production":{
         "PORT" : 80,
-        "MONGODB_URI" : "mongodb://xxxx/db_name"
+        "MONGODB_URI" : "mongodb://xxxx/db_name",
+        "JWT_EXP" : "2m"
     }
 }

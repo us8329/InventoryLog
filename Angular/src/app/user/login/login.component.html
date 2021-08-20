@@ -1,0 +1,42 @@
+
+<title>Login</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<nav class="navbar navbar-light bg-light" style="margin-bottom: 100px">
+    <div class=heading>
+      <h5>Node Js Demo</h5>
+     </div>
+   </nav>
+      
+<div class = "text-center center-div" id="login">
+  <div class="container w-25 border py-5">
+    <div class="title pb-5">
+      <h2 class="font-weight-bold">Login</h2>
+      <span>Login into existing account</span>
+    </div>
+    <form #loginForm = "ngForm" (ngSubmit)="loginForm.valid && onSubmit(loginForm)">
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="example@gmail.com" name ="email" #email="ngModel" [(ngModel)]="model.email" required >
+        <!-- <div *ngIf="loginForm.submitted && email." -->
+        <small class="form-text text-muted text-left">enter email</small>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control"  name="password" #password ="ngModel" [(ngModel)]="model.password" required minlength="4"> 
+        <small class="form-text text-muted text-left">enter password</small>
+      </div>
+
+      <button type="submit" class="btn btn-dark rounded-pi">LogIn</button>
+      <div class = "signupoption">
+        <a href = "signup">
+          dont have an account? signup
+        </a>
+      </div>
+
+    </form>
+    <br>
+    <div class="alert" *ngIf="serverErrorMessage"> 
+      {{serverErrorMessage}}
+    </div>
+  </div>
+</div>
+
+
