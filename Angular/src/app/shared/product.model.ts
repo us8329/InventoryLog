@@ -4,4 +4,5 @@ export class Product {
     productType : string | undefined;
     availibilityDate : string | undefined;
     price:string | undefined;
+    productImage: string | undefined;
 }

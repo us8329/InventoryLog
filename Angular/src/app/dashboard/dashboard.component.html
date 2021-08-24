@@ -1,5 +1,5 @@
 <title>Dashboard</title>
-
+<!-- <body class="bodybackground"> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
@@ -24,7 +24,7 @@
          </li>
      </ul>
    </nav>
-
+   
    <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -53,11 +53,6 @@
             <small class="form-text text-muted text-left">mention type of product</small>
             
         </div>
-        <!-- <div class="form-group">
-          <input type="text" class="form-control" placeholder="NA" #productType = 'ngModel' [(ngModel)]='productService.selectedProduct.productType'name = "productType">
-          <small class="form-text text-muted text-left">type of product</small>
-      </div> -->
-
         <div class="form-group">
           <input type="date" class="form-control" placeholder="dd/mm/yyyy" #availibilityDate='ngModel' [(ngModel)]='productService.selectedProduct.availibilityDate' name = "availibilityDate">
           <small class="form-text text-muted text-left">date of availibility</small>
@@ -67,18 +62,15 @@
             <small class="form-text text-muted text-left">cost of the product in ₹</small>
           </div>
   
-          <!-- <form action="/upload" method="POST" enctype="multipart/form-data"> -->
-          <!-- <div class="form-group">
+          <div class="form-group">
             <input type="file" class="form-control" name="productImage">
             <small class="form-text text-muted text-left">Product Image</small>
-          </div> -->
-          <!-- </form> -->
+          </div>
   
         <div class="modal-footer">
             <button  type="submit" class="btn btn-outline-primary" data-dismiss="modal">Save Product</button>
         </div>
     </form>
-   
   </div>
   </div>
 </div>
@@ -95,7 +87,7 @@
           <th class="text-center ">Product Type</th>
           <th class="text-center ">Date of Availibility</th>
           <th class="text-center ">Price</th>
-          <!-- <th class="text-center ">Product Image</th> -->
+          <th class="text-center ">Product Image</th>
           <th class="text-center ">Action</th>
         </tr>
       </thead>
@@ -105,6 +97,7 @@
         <td>{{product.productType}}</td>
         <td>{{product.availibilityDate}}</td>
         <td>{{product.price}}</td>
+        <td>{{product.productImage}}</td>
         <td>
 
           <a class="action-btn" (click)="onEdit(product) ">
@@ -118,29 +111,3 @@
       </tr>
     </table>
 </div>
-
-
-
-<!-- <thread>
-  <tr>
-    <td class="text-center "><%= row._id%></td>
-    <td class="text-center "><%= row.productName%></td>
-    <td class="text-center "><%= row.productType%></td>
-    <td class="text-center "><%= row.availibilityDate%></td>
-    <td class="text-center "><%= row.price%></td>
-    <td>
-      <% if(row.image){ %>
-      <img src="<%= row.image%>" alt = "<%= row.image%>">
-      <% } %>
-    </td>
-    <td>
-      <a href='/editProduct/<%= row._id%>' class="text-success">
-        <i class = 'fas fa-edit fa-lg mx-2'></i>
-      </a>
-      <a href='/delete/<%= row._id%>' class="text-danger">
-        <i class = 'fas fa-trash fa-lg mx-2 red-color'></i>
-      </a>
-    </td>
-  </tr>
-<% }) %>
-</thread> -->

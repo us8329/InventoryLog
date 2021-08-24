@@ -12,7 +12,8 @@ export class ProductService {
     productName:'',
     productType:'',
     availibilityDate:'',
-    price:''
+    price:'',
+    productImage:''
   }
   products:Product[] | undefined;
 

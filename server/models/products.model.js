@@ -20,9 +20,9 @@ const productSchema = new mongoose.Schema({
         type:String , 
         required:true,
     },
-    // image:{
-    //     type:String,
-    // }
+    productImage:{
+        type:String,
+    }
 })
 
 const Products = new mongoose.model("Product" , productSchema);

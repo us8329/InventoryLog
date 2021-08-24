@@ -11,3 +11,6 @@
 .heading{
     padding-top: 6px;
 }
+.bodybackground{
+    background: linear-gradient(180deg, slategrey,black);
+ }

@@ -4,6 +4,7 @@ import { SignUpComponent } from "./user/sign-up/sign-up.component";
 import { LoginComponent } from "./user/login/login.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 
+
 export const appRoutes : Routes =[
     {
         path:'login' , component:UserComponent,

@@ -7,13 +7,15 @@ import { HttpClientModule } from '@angular/common/http';
 //component import 
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 //routes
 import { appRoutes } from './routes';
-import { LoginComponent } from './user/login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserService } from './shared/user.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -22,7 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserComponent,
     SignUpComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule, 

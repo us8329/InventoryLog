@@ -20,30 +20,28 @@ export class DashboardComponent implements OnInit {
     this.refreshProductList();
   }
   onSubmit(form: NgForm){
-    if(form.value._id == "") {
+    // if(form.value._id == "") {
     this.productService.postProduct(form.value).subscribe(
     res=>{
         this.resetForm(form);
         this.refreshProductList();
+      },
+      err=>{
+        if(err.status===422){
+          this.serverErrormessage = err.console.error.join('<br/>')
+        }else{
+          this.serverErrormessage = 'Something went wrong , please contact admin. ';
+        }
       })
-    }
-    else{
-      this.productService.putProduct(form.value).subscribe(
-      res=>{
-        this.resetForm(form);
-        this.refreshProductList();        
-      })
-    }
-      // err=>{
-      //   if(err.status===422){
-      //     this.serverErrormessage = err.console.error.join('<br/>')
-      //   }else{
-      //     this.serverErrormessage = 'Something went wrong , please contact admin. ';
-      //   }
-      // }
-      
-    
-  }
+  //   }
+  // else{
+  //   this.productService.putProduct(form.value).subscribe(
+  //   res=>{
+  //     this.resetForm(form);
+  //     this.refreshProductList();        
+  //   })
+  // }
+}
     resetForm(form?:NgForm){
       if(form)
         form.reset();
@@ -53,7 +51,8 @@ export class DashboardComponent implements OnInit {
         productName:'',
         productType:'',
         availibilityDate:'',
-        price:''
+        price:'',
+        productImage:''
       };
       
       this.serverErrormessage='';
