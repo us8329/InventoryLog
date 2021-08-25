@@ -28,10 +28,14 @@ export class ProductService {
   }
 
   putProduct(product : Product){
-    return this.http.put(environment.apiBaseUri+'/${product._id}' , product);
+    const id = product._id;
+    // console.log(id);
+    return this.http.put(environment.apiBaseUri+'/'+id , product);
   }
 
   deleteproduct(_id:String){
-    return this.http.delete(environment.apiBaseUri+'/${_id}')
+    const id = _id;
+    // console.log(environment.apiBaseUri+'/'+id);
+    return this.http.delete(environment.apiBaseUri+'/'+id)
   }
 }

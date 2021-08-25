@@ -28,8 +28,18 @@
     a{
         color: white;
     }
-    /* body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box;} */
-.listbtn{
+    .listbtn{
     padding-top: 10;
-}
+    }
+    h1{
+        text-align: center;
+        font-family:sans-serif
+    }
+    .row{
+        padding-top: 10px;
+    }
+    .buffer{
+        color: white;
+        padding-bottom: 10px;
+    }
+   

@@ -5,11 +5,9 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 const storage = multer.diskStorage({
     destination:(req,res,cb)=>{
-        cb(null,'./server/uploads/');
+        cb(null,'./uploads/');
     },
     filename: (req,file,cb)=>{
-        // const ext = path.extname(file.originalname)
-        // const filePath = '/Users/utkarshsinha/mongoosedemo/uploads/'
         cb(null, new Date().toISOString() + file.originalname)
     }
 });
@@ -17,7 +15,6 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage })
 
 module.exports.add = (req,res,next)=>{
-    // const upload = multer({storage: storage })
     var product = new Product();
     product.productName = req.body.productName;
     product.productType = req.body.productType;
@@ -62,13 +59,13 @@ module.exports.update = (req,res,next)=>{
     const id = req.params.id;
     if(!ObjectId.isValid(req.params.id))
         return res.status(400).send('No record with given id')
-
+    const upload = multer({storage: storage })
     Product.findByIdAndUpdate(id , {
         productName: req.body.productName,
         productType: req.body.productType,
         availibilityDate:req.body.availibilityDate,
-        price:req.body.price
-        // image:new_image
+        price:req.body.price,
+        // image:req.file.path
     },(err,docs)=>{
         if(!err)
             res.send(docs)

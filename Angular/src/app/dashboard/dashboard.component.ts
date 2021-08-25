@@ -16,15 +16,17 @@ export class DashboardComponent implements OnInit {
   constructor(public productService:ProductService , private router:Router) { }
 
   ngOnInit(): void {
-    this.resetForm();
+    // this.resetForm(form);
     this.refreshProductList();
   }
   onSubmit(form: NgForm){
-    // if(form.value._id == "") {
+    if(form.value._id == "") {
+      
     this.productService.postProduct(form.value).subscribe(
     res=>{
         this.resetForm(form);
         this.refreshProductList();
+        // form.value._id = "";
       },
       err=>{
         if(err.status===422){
@@ -33,16 +35,24 @@ export class DashboardComponent implements OnInit {
           this.serverErrormessage = 'Something went wrong , please contact admin. ';
         }
       })
-  //   }
-  // else{
-  //   this.productService.putProduct(form.value).subscribe(
-  //   res=>{
-  //     this.resetForm(form);
-  //     this.refreshProductList();        
-  //   })
-  // }
+    }
+  else{
+    this.productService.putProduct(form.value).subscribe(
+    res=>{
+      this.resetForm(form);
+      this.refreshProductList();        
+    },
+    err=>{
+      if(err.status===422){
+        this.serverErrormessage = err.console.error.join('<br/>')
+      }else{
+        this.serverErrormessage = 'Something went wrong , please contact admin. ';
+      }
+
+    })
+  }
 }
-    resetForm(form?:NgForm){
+    resetForm(form:NgForm){
       if(form)
         form.reset();
       this.productService.selectedProduct={
@@ -63,16 +73,25 @@ export class DashboardComponent implements OnInit {
         this.productService.products =res as Product[];
       });
     }
+
     onEdit(product : Product){
+      if(confirm('Edit product '+ product.productName + "?")==true){
       this.productService.selectedProduct = product;
+      document.getElementById("productform")?.scrollIntoView({behavior:'smooth'})
     }
-    onDelete(_id : String , form:NgForm){
-      if(confirm('Are you sure you want to delete the product ?')==true){
-        this.productService.deleteproduct(_id).subscribe(
+  }
+    onDelete(product : Product , form:NgForm){
+      // console.log(_id)
+      const id = product._id;
+      if(confirm('Are you sure you want to delete product ' + product.productName + "?")==true){
+        this.productService.deleteproduct(id).subscribe(
           (res)=>{
             this.refreshProductList();  
             this.resetForm(form);
           })
       }
+    }
+    toList(){
+      document.getElementById("list")?.scrollIntoView({behavior:'smooth'})
     }
 }
