@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+  const mongoose = require('mongoose')
 const Product = require('../models/products.model')
 const multer = require('multer');
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -12,9 +12,10 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({storage: storage })
+const upload = multer({storage: storage }).single('productImage');
 
-module.exports.add = (req,res,next)=>{
+// module.exports.add = upload ,(req,res,next)=>{
+module.exports.add =  (req,res,next)=>{
     var product = new Product();
     product.productName = req.body.productName;
     product.productType = req.body.productType;
@@ -83,3 +84,4 @@ module.exports.delete = (req,res,next)=>{
         else console.log('error in product delete')
     }) 
 }
+

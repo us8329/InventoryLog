@@ -20,6 +20,8 @@ export class ProductService {
   constructor(private http:HttpClient) { }
 
   postProduct(product:Product){
+    // console.log(product.productName)
+    console.log(product.productImage)
     return this.http.post(environment.apiBaseUri+'/add',product);
   }
 

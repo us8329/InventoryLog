@@ -14,6 +14,9 @@ const rtsIndex = require('./routes/index.router')
 
 
 const app = express();
+
+app.use(express.urlencoded({extended:false}))
+app.use('/uploads' , express.static('uploads'))
 app.use(bodyParser.json());
 app.use(cors({origin: 'http://localhost:4200'}));
 app.use(passport.initialize());

@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+  nav_heading="Mean Crud Demo";
+  imageData:string | undefined;
   serverErrormessage:string |undefined;
   constructor(public productService:ProductService , private router:Router) { }
 
@@ -19,6 +21,15 @@ export class DashboardComponent implements OnInit {
     // this.resetForm(form);
     this.refreshProductList();
   }
+  
+  onFileSelect(event:Event){
+    console.log("file selected"); 
+    const file = (event.target as HTMLInputElement).files;
+    console.log(file);
+    const allowedFiles = ["image/png" , "image/jpg" , "image/jpeg"]
+    
+  }
+
   onSubmit(form: NgForm){
     if(form.value._id == "") {
       
@@ -36,6 +47,7 @@ export class DashboardComponent implements OnInit {
         }
       })
     }
+    
   else{
     this.productService.putProduct(form.value).subscribe(
     res=>{
@@ -57,7 +69,6 @@ export class DashboardComponent implements OnInit {
         form.reset();
       this.productService.selectedProduct={
         _id:'',
-        // username:'',
         productName:'',
         productType:'',
         availibilityDate:'',
@@ -94,4 +105,6 @@ export class DashboardComponent implements OnInit {
     toList(){
       document.getElementById("list")?.scrollIntoView({behavior:'smooth'})
     }
+
+    productimage:string = 'assets/images/football.jpg'; 
 }
