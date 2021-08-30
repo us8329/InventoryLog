@@ -25,7 +25,7 @@ module.exports.add = async(req,res)=>{
         price : req.body.price , 
         productImage : imagePath
      });
-    console.log (product)
+    // console.log (product)
     const creatproduct = await product.save((err,doc)=>{
                 if(!err){
                     res.send(doc);
@@ -39,7 +39,7 @@ module.exports.add = async(req,res)=>{
 }
 module.exports.update =  async(req,res)=>{
     const id = req.params.id;
-    console.log(id);
+    // console.log(id);
     // if(!ObjectId.isValid(req.params.id))
         // return res.status(400).send('No record with given id')
     const imagePath = 'http://localhost:4000/uploads/' + req.file.filename ;

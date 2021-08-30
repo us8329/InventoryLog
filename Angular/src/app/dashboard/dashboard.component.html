@@ -21,7 +21,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Add Product</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">{{action}}</h5>
       </div>
       <div class="modal-body">
       <!-- <form  action="/home" method = "POST" enctype="multipart/form-data"> -->
@@ -112,8 +112,19 @@
           <button  type="submit" class="btn btn-outline-primary" data-dismiss="modal">Save Product</button>
         </div>
 
+        <div *ngIf="showMsg">
+          <div class="col-xs-12">
+            <p class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{Msg}}</strong> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </p>
+              
+          </div>
+        </div>
         </form>
-
+        
         <div class="modal-footer">
           <button (click)="toList()" class="btn btn-outline-dark" routerLinkActive="active">Product list</button>
           </div>
@@ -157,7 +168,8 @@
           <a class="action-btn" (click)="onEdit(product) ">
             <i class="material-icons">edit</i>
           </a>
-          <a class="action-btn" (click)="onDelete(product,form.value)">
+
+          <a class="action-btn" style="padding-left: 5px;" (click)="onDelete(product,form.value)">
             <i class="material-icons">delete</i>
           </a>
         </td>

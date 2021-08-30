@@ -14,7 +14,10 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   form? : FormGroup;
+  action =  "Add Product"
   nav_heading="Mean Crud Demo";
+  showMsg:boolean = false;
+  Msg ="Product Added";
   private mode = "create";
   product : Product 
   imagePreview: string;
@@ -83,8 +86,11 @@ export class DashboardComponent implements OnInit {
     this.refreshProductList()
     this.form.reset();
     this.imageData = null
+    this.showMsg = true;
+    window.setTimeout(function(){location.reload()},3000)
     }
     else{
+      this.Msg = "product -" + this.form.value.productName  +" updated"
       console.log("editing")
       console.log(this.postId)
       this.productService.putProduct(
@@ -95,8 +101,12 @@ export class DashboardComponent implements OnInit {
         this.form.value.price , 
         this.form.value.productImage) 
       this.form.reset();
+      this.showMsg = true;
       this.refreshProductList()
       this.imageData = null
+      // window.location.reload();
+      window.setTimeout(function(){location.reload()},3000)
+
   }
 }
 
@@ -202,6 +212,7 @@ export class DashboardComponent implements OnInit {
     }
 
     onEdit(product : Product ){
+      this.action = "Update Product - " + product.productName +"/" + product.productType
       this.postId = product._id;
       console.log(this.postId)
       this.mode = "edit"
