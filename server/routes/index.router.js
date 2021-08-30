@@ -35,10 +35,18 @@ router.post('/register' , ctrlUser.register)
 router.post('/authenticate' , ctrlUser.authenticate)
 router.get('/userprofile' , jwtHelper.verifyJwtToken , ctrlUser.userProfile)
 
+router.post('/add' , upload ,ctrlProduct.add)
+
+router.get('/display' , ctrlProduct.display)
+// router.get('/edit/:id',ctrlProduct.currentproduct )
+router.put('/:id' ,upload , ctrlProduct.update)
+
+router.delete('/:id' , ctrlProduct.delete)
+module.exports = router;
+ 
 
 // router.post('/add', ctrlProduct.add)
 
-router.post('/add' , upload ,ctrlProduct.add)
 
 
 // router.post('/add' , upload , async (req,res,next)=>{
@@ -97,13 +105,6 @@ router.post('/add' , upload ,ctrlProduct.add)
 // } )
 
 
-router.get('/display' , ctrlProduct.display)
-
-router.put('/:id' ,upload , ctrlProduct.update)
-
-router.delete('/:id' , ctrlProduct.delete)
-module.exports = router;
- 
 
 // const express = require("express");
 // const multer = require("multer");

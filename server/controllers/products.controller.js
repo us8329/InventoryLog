@@ -14,6 +14,97 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage }).single('productImage');
 
+
+
+module.exports.add = async(req,res)=>{
+    const imagePath = 'http://localhost:4000/uploads/' + req.file.filename;
+    const product = new Product({
+        productName : req.body.productName , 
+        productType : req.body.productType , 
+        availibilityDate : req.body.availibilityDate , 
+        price : req.body.price , 
+        productImage : imagePath
+     });
+    console.log (product)
+    const creatproduct = await product.save((err,doc)=>{
+                if(!err){
+                    res.send(doc);
+                }else{
+                    console.log(err)
+                    if(err.code = 11000)
+                      res.status(422).send(['product cannot be added'])
+                      else return next(err)
+                }
+              });
+}
+module.exports.update =  async(req,res)=>{
+    const id = req.params.id;
+    console.log(id);
+    // if(!ObjectId.isValid(req.params.id))
+        // return res.status(400).send('No record with given id')
+    const imagePath = 'http://localhost:4000/uploads/' + req.file.filename ;
+    const upd = await Product.findByIdAndUpdate(id,{
+        productName : req.body.productName , 
+        productType : req.body.productType , 
+        availibilityDate : req.body.availibilityDate , 
+        price : req.body.price , 
+        productImage : imagePath
+        // productImage : null
+     },(err,docs)=>{
+        if(!err)
+            res.send(docs)
+        else console.log('Error in product update')
+    });
+}
+module.exports.currentproduct = (req,res,next)=>{
+    const id = req.params.id;
+    if(!ObjectId.isValid(req.params.id))
+        return res.status(400).send('No record with given id')
+    Product.findById(id , (err,docs)=>{
+        if(!err)
+            res.send(docs)
+        else{
+            console.log('Error in retrieving product')
+        }
+        })
+}
+
+module.exports.display = async (req,res,next)=>{
+    Product.find((err,docs)=>{
+        if(!err) {
+        // console.log(docs)
+            res.send(docs)
+        }
+        else{
+            console.log('error in retrieving products')
+        }
+    });
+   
+}
+
+module.exports.delete = (req,res,next)=>{
+    const id = req.params.id;
+    if(!ObjectId.isValid(req.params.id))
+    return res.status(400).send('No record with given id')
+
+    Product.findByIdAndRemove(id ,(err,docs)=>{
+        if(!err)
+            res.send(docs)
+        else console.log('error in product delete')
+    }) 
+}
+
+ // const products = await Product.find((err,docs)=>{
+    //     if(!err) {
+    //     console.log(docs)
+    //         res.send(docs)
+    //     }
+    //     else{
+    //         console.log('error in retrieving products')
+    //     }
+    // });
+
+
 // module.exports.add = upload,  async (req, res, next) => {
 //     const url = req.protocol + "://" + req.get("host");
 //       const product = new Product
@@ -106,91 +197,6 @@ const upload = multer({storage: storage }).single('productImage');
 //       })
     
 // }
-
-module.exports.add = async(req,res)=>{
-    const imagePath = 'http://localhost:4000/uploads/' + req.file.filename;
-    const product = new Product({
-        productName : req.body.productName , 
-        productType : req.body.productType , 
-        availibilityDate : req.body.availibilityDate , 
-        price : req.body.price , 
-        productImage : imagePath
-     });
-    console.log (product)
-    const creatproduct = await product.save((err,doc)=>{
-                if(!err){
-                    res.send(doc);
-                }else{
-                    console.log(err)
-                    if(err.code = 11000)
-                      res.status(422).send(['product cannot be added'])
-                      else return next(err)
-                }
-              });
-}
-module.exports.currentproduct = (req,res,next)=>{
-    const id = req.params.id;
-    if(!ObjectId.isValid(req.params.id))
-        return res.status(400).send('No record with given id')
-    Product.findById(id , (err,docs)=>{
-        if(!err)
-            res.send(docs)
-        else{
-            console.log('Error in retrieving product')
-        }
-        })
-}
-
-module.exports.display = async (req,res,next)=>{
-    Product.find((err,docs)=>{
-        if(!err) {
-        // console.log(docs)
-            res.send(docs)
-        }
-        else{
-            console.log('error in retrieving products')
-        }
-    });
-    // const products = await Product.find((err,docs)=>{
-    //     if(!err) {
-    //     console.log(docs)
-    //         res.send(docs)
-    //     }
-    //     else{
-    //         console.log('error in retrieving products')
-    //     }
-    // });
-}
-module.exports.update = (req,res,next)=>{
-    const id = req.params.id;
-    console.log(id);
-    if(!ObjectId.isValid(req.params.id))
-        return res.status(400).send('No record with given id')
-    const imagePath = 'http://localhost:4000/uploads/' + req.file.filename;
-    Product.findByIdAndUpdate(id,{
-        productName : req.body.productName , 
-        productType : req.body.productType , 
-        availibilityDate : req.body.availibilityDate , 
-        price : req.body.price , 
-        productImage : imagePath
-     },(err,docs)=>{
-        if(!err)
-            res.send(docs)
-        else console.log('Error in product update')
-    });
-}
-module.exports.delete = (req,res,next)=>{
-    const id = req.params.id;
-    if(!ObjectId.isValid(req.params.id))
-    return res.status(400).send('No record with given id')
-
-    Product.findByIdAndRemove(id ,(err,docs)=>{
-        if(!err)
-            res.send(docs)
-        else console.log('error in product delete')
-    }) 
-}
-
 
 
 // const express = require("express");

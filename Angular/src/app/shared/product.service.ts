@@ -79,7 +79,18 @@ export class ProductService {
     productData.append("price" , price);
     productData.append("productImage" , productImage , productName);
     console.log(productData)
-    this.http.put(path,productData)
+    this.http.put<{product:Product}>(path,productData).subscribe(productData => {
+      const product: Product = {
+      _id: productData.product._id,
+      productName: productData.product.productName,
+      productType: productData.product.productType,
+      availibilityDate : productData.product.availibilityDate,
+      price : productData.product.price , 
+      productImage: productData.product.productImage
+    };
+    this.products.push(product);
+    this.product$.next(this.products);
+  })
 
   }
 

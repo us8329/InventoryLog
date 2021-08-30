@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute, ParamMap, RouterLink } from "@angular/router";
 import { Product } from 'src/app/shared/product.model';
 import { ProductService } from 'src/app/shared/product.service';
 import { Router } from '@angular/router';
@@ -80,17 +80,23 @@ export class DashboardComponent implements OnInit {
     console.log('adding product')
     console.log(this.form.value.productImage)
     this.productService.postProduct( this.form.value.productName ,this.form.value.productType , this.form.value.availibilityDate , this.form.value.price , this.form.value.productImage )
-    this.form.reset();
     this.refreshProductList()
+    this.form.reset();
     this.imageData = null
     }
     else{
       console.log("editing")
       console.log(this.postId)
-      this.productService.putProduct(this.postId, this.form.value.productName ,this.form.value.productType , this.form.value.availibilityDate , this.form.value.price , this.form.value.productImage) 
+      this.productService.putProduct(
+        this.postId,
+        this.form.value.productName ,
+        this.form.value.productType , 
+        this.form.value.availibilityDate , 
+        this.form.value.price , 
+        this.form.value.productImage) 
       this.form.reset();
-    this.refreshProductList()
-    this.imageData = null
+      this.refreshProductList()
+      this.imageData = null
   }
 }
 

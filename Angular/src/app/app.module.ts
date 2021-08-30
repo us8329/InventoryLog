@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SignUpComponent,
     LoginComponent,
     DashboardComponent,
+
   ],
   imports: [
     BrowserModule, 
