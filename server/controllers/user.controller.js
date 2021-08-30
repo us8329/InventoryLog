@@ -5,7 +5,6 @@ const _ = require('lodash')
 
 module.exports.register = (req,res,next)=>{
     var user = new User();
-    // user.username = req.body.username;
     user.email = req.body.email;
     user.password = req.body.password;
     user.confirmpassword = req.body.confirmpassword;

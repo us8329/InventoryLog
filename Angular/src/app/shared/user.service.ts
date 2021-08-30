@@ -3,6 +3,7 @@ import {HttpClient ,HttpHeaders} from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import {User} from './user.model'
 
+//decorator
 @Injectable({
   providedIn: 'root'
 })
@@ -22,9 +23,5 @@ export class UserService {
 
   login(authCredentials: any){
     return this.http.post(environment.apiBaseUri+'/authenticate' , authCredentials);
-  }
-
-  setToken(token:string){
-    localStorage.setItem('token' , token);
   }
 }
