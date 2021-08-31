@@ -5,18 +5,19 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 <nav class="navbar fixed-top navbar-light bg-light" position='fixed' style="margin-bottom: 10px">
-    <div class=heading>
-      <h5>{{nav_heading}}</h5>
-     </div>
-     <ul class="navbar-nav">
-         <li class="nav-item">
-          <a href="login">
-            <button class="btn btn-secondary">logout </button>
-          </a>
-         </li>
-     </ul>
-   </nav>
+  <div class=heading>
+    <h5>{{nav_heading}}</h5>
+  </div>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a href="login">
+        <button class="btn btn-secondary">logout </button>
+      </a>
+    </li>
+  </ul>
+</nav>
 <body>
+<!-- {{userService.selectedUser}} -->
 <section id ="productform">  
    <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -24,62 +25,16 @@
         <h5 class="modal-title" id="exampleModalCenterTitle">{{action}}</h5>
       </div>
       <div class="modal-body">
-      <!-- <form  action="/home" method = "POST" enctype="multipart/form-data"> -->
-      <!-- <form #productForm = "ngForm" (ngSubmit)="productForm.valid && onSubmit(productForm) ; productForm.resetForm()">
-        <input type="hidden" name="_id" #_id="ngModel" [(ngModel)] = 'productService.selectedProduct._id'>
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="" #productName = 'ngModel' [(ngModel)]='productService.selectedProduct.productName'name = "productName">
-            <small class="form-text text-muted text-left">name of product</small>
-        </div>
-        <div class="form-group">
-            <select class="form-control"  #productType = 'ngModel' [(ngModel)]='productService.selectedProduct.productType' id="productType" name= "productType">
-                <option>--N/A--</option>
-                <option>Books</option>
-                <option>Movies</option>
-                <option>Medicine</option>
-                <option>Electronics</option>
-                <option>Sports</option>
-                <option>Clothing</option>
-                <option>accessories</option>
-                <option>Lifestyle</option>
-           </select>
-            <small class="form-text text-muted text-left">mention type of product</small>
-            
-        </div>
-        <div class="form-group">
-          <input type="date" class="form-control" placeholder="dd/mm/yyyy" #availibilityDate='ngModel' [(ngModel)]='productService.selectedProduct.availibilityDate' name = "availibilityDate">
-          <small class="form-text text-muted text-left">date of availibility</small>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="99.99" #price='ngModel' [(ngModel)]='productService.selectedProduct.price' name="price">
-            <small class="form-text text-muted text-left">cost of the product in ₹</small>
-          </div>
-  
-          <div class="form-group">
-            <input type="file" (change) = "onFileSelect($event)"class="form-control" name="productImage">
-            <small class="form-text text-muted text-left">Product Image</small>
-          </div>
-          <div *ngIf="imageData">
-          <img [src]="imageData" [alt]="form.value.name" width="100" />
-        </div>
-  
-        <div class="modal-footer">
-            <button  type="submit" class="btn btn-outline-primary" data-dismiss="modal">Save Product</button>
-          </div>
-        </form>
-        <div class="modal-footer">
-        <button (click)="toList()" class="btn btn-outline-dark" routerLinkActive="active">Product list</button>
-        </div> -->
         <form [formGroup]="form" (submit)= "onSubmit()">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="" formControlName="productName">
+            <input type="text" class="form-control"  value="{{productService.selectedProduct.productName}}" formControlName="productName">
             <small class="form-text text-muted text-left">name of product</small>
         </div>
 
 
         <div class="form-group"  >
-          <select class="form-control" formControlName= "productType">
-            <option>--N/A--</option>
+          <select class="form-control" formControlName= "productType" value="{{productService.selectedProduct.productType}}">
+            <option selected disabled>{{productService.selectedProduct.productType}}</option>
             <option>Books</option>
             <option>Movies</option>
             <option>Medicine</option>
@@ -94,15 +49,15 @@
 
 
         <div class="form-group">
-          <input type="date" class="form-control" placeholder="dd/mm/yyyy" formControlName="availibilityDate">
+          <input type="date" class="form-control" placeholder="dd-mm-yyyy"formControlName="availibilityDate" value="{{productService.selectedProduct.availibilityDate}}">
           <small class="form-text text-muted text-left">date of availibility</small>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="99.99" formControlName="price">
+          <input type="text" class="form-control"   placeholder="99.99" value="{{productService.selectedProduct.price}}"formControlName="price">
           <small class="form-text text-muted text-left">cost of the product in ₹</small>
         </div>
         <div class="form-group">
-          <input type= "file" class="form-control" (change)="onFileSelect($event)">
+          <input type= "file" class="form-control" (change)="onFileSelect($event)" placeholder="{{productService.selectedProduct.productImage}}">
           <small class="form-text text-muted text-left">Product Image</small>
         </div>
         <div *ngIf="imageData">
@@ -152,7 +107,7 @@
           <th class="text-center ">Action</th>
         </tr>
       </thead>
-      <tr *ngFor="let product of productService.products">
+      <tr *ngFor="let product of productService.products | paginate: {itemsPerPage : 3 , currentPage:p}">
         <!-- <td>{{product._id}}</td> -->
         <!-- property binding [property]="value" -->
         <td [title] = "product.productName">{{product.productName | uppercase}}</td>
@@ -175,6 +130,8 @@
         </td>
       </tr>
     </table>
-</div>
+  </div>
 </section>
+<br>
+<pagination-controls (pageChange)= "p= $event" class="float-right"></pagination-controls>
 </body>

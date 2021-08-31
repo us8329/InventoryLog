@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormGroup ,FormControl } from '@angular/forms';
+import { NgxPaginationModule  } from 'ngx-pagination';
 
 
 //component import 
@@ -37,6 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
   ],
   providers: [ UserService],
   bootstrap: [AppComponent]
