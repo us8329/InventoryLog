@@ -1,5 +1,6 @@
 export class Product {
     _id:any;
+    username : string | undefined ;
     productName : string | undefined;
     productType : string | undefined;
     availibilityDate : string | undefined;

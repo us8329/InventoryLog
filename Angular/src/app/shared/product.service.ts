@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient ,HttpHeaders} from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { Product } from './product.model';
+import { User } from './user.model';
 import { Subject } from "rxjs";
 import { formatCurrency } from '@angular/common';
 
@@ -10,8 +11,10 @@ import { formatCurrency } from '@angular/common';
 })
 export class ProductService {
   private product$ = new Subject<Product[]>();
+  user : User;
   selectedProduct :Product = {
     _id:'',
+    username:'',
     productName:'',
     productType:'',
     availibilityDate:'',
@@ -28,8 +31,9 @@ export class ProductService {
   //   return this.http.post(environment.apiBaseUri+'/add',product);
   // }
 
-  postProduct(productName:string , productType:string , availibilityDate:string , price:string , productImage : File): void {
+  postProduct(username : string , productName:string , productType:string , availibilityDate:string , price:string , productImage : File): void {
     const productData = new FormData();
+    productData.append('username' , username);
     productData.append("productName" ,productName );
     productData.append("productType" , productType);
     productData.append("availibilityDate" , availibilityDate);
@@ -48,6 +52,7 @@ export class ProductService {
       .subscribe(productData => {
         const product: Product = {
         _id: productData.product._id,
+        username : productData.product.username,
         productName: productData.product.productName,
         productType: productData.product.productType,
         availibilityDate : productData.product.availibilityDate,
@@ -65,7 +70,7 @@ export class ProductService {
    return  this.http.get(environment.apiBaseUri+'/display')
   }
 
-  putProduct(_id  : string , productName:string , productType:string , availibilityDate:string , price:string , productImage : File): void{
+  putProduct(_id  : string , username :string , productName:string , productType:string , availibilityDate:string , price:string , productImage : File): void{
     // const id = product._id;
     // console.log(id);
     // return this.http.put(environment.apiBaseUri+'/'+id , product);
@@ -73,6 +78,7 @@ export class ProductService {
     console.log(id);
     const path  = "http://localhost:4000/api%20/" + id;
     const productData = new FormData();
+    productData.append("username" , username)
     productData.append("productName" ,productName );
     productData.append("productType" , productType);
     productData.append("availibilityDate" , availibilityDate);
@@ -82,6 +88,7 @@ export class ProductService {
     this.http.put<{product:Product}>(path,productData).subscribe(productData => {
       const product: Product = {
       _id: productData.product._id,
+      username:productData.product.username,
       productName: productData.product.productName,
       productType: productData.product.productType,
       availibilityDate : productData.product.availibilityDate,

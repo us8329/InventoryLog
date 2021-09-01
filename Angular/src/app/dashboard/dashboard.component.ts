@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.form = new FormGroup({
+      username : new FormControl(null),
       productName : new FormControl(null),
       productType : new FormControl(null),
       availibilityDate : new FormControl(null),
@@ -79,7 +80,7 @@ export class DashboardComponent implements OnInit {
     if(this.mode=="create"){
     console.log('adding product')
     console.log(this.form.value.productImage)
-    this.productService.postProduct( this.form.value.productName ,this.form.value.productType , this.form.value.availibilityDate , this.form.value.price , this.form.value.productImage )
+    this.productService.postProduct(this.form.value.username, this.form.value.productName ,this.form.value.productType , this.form.value.availibilityDate , this.form.value.price , this.form.value.productImage )
     this.form.reset();
     this.refreshProductList()
     this.imageData = null
@@ -92,6 +93,7 @@ export class DashboardComponent implements OnInit {
       console.log(this.postId)
       this.productService.putProduct(
         this.postId,
+        this.form.value.username,
         this.form.value.productName ,
         this.form.value.productType , 
         this.form.value.availibilityDate , 

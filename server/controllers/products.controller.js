@@ -19,6 +19,7 @@ const upload = multer({storage: storage }).single('productImage');
 module.exports.add = async(req,res)=>{
     const imagePath = 'http://localhost:4000/uploads/' + req.file.filename;
     const product = new Product({
+        username : req.body.username,
         productName : req.body.productName , 
         productType : req.body.productType , 
         availibilityDate : req.body.availibilityDate , 
@@ -44,6 +45,7 @@ module.exports.update =  async(req,res)=>{
         // return res.status(400).send('No record with given id')
     const imagePath = 'http://localhost:4000/uploads/' + req.file.filename ;
     const upd = await Product.findByIdAndUpdate(id,{
+        username : req.body.username,
         productName : req.body.productName , 
         productType : req.body.productType , 
         availibilityDate : req.body.availibilityDate , 
