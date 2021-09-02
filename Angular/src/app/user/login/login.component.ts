@@ -23,15 +23,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(form: NgForm){
-    this.userService.login(form.value).subscribe(
+  onSubmit(form: NgForm){ 
+    this.userService.login(form.value)
+    .subscribe(
       res =>{
-        // this.userService.setToken( res['token'] );
-        this.router.navigateByUrl('/dashboard')
+        this.router.navigate(['/dashboard'])
       },err=>{
-        this.serverErrorMessage = err.error.message;
-        
+        this.serverErrorMessage = err.error.message;  
       }
     );
   }
+
 }

@@ -19,6 +19,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { appRoutes } from './routes';
 import { UserService } from './shared/user.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from './guard/auth.guard';
 
 
 
@@ -40,7 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     NgxPaginationModule,
   ],
-  providers: [ UserService],
+  providers: [ UserService , AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

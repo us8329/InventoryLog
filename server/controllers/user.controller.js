@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const passport = require('passport')
 const _ = require('lodash')
+const { ok } = require('assert')
 
 module.exports.register = (req,res,next)=>{
     var user = new User();
@@ -17,16 +18,21 @@ module.exports.register = (req,res,next)=>{
             else return next(err)
       }
     })
+   
 }
 
 module.exports.authenticate = (req,res,next)=>{
   passport.authenticate('local' , (err,user,info)=>{
-    //error from passport middleware 
-    if(err) return res.status(400).json(err);
-    //registered user 
-    else if(user) return res.status(200).json({"token" : user.generateJwt()});
-    //unknown user or wrong passport
-    else return res.status(404).json(info)
+    if(err)
+      return res.status(400).json(err);
+    else if(user) {
+      // token= user.generateJwt();
+      // console.log(token)
+      // return res.status(200).send(token);
+      return res.status(200).send({ "jwt" : user.generateJwt()});
+    }
+    else 
+      return res.status(404).json(info)
   })(req,res);
 
 }

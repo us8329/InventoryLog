@@ -3,6 +3,7 @@ import { UserComponent } from "./user/user.component";
 import { SignUpComponent } from "./user/sign-up/sign-up.component";
 import { LoginComponent } from "./user/login/login.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { AuthGuard } from "./guard/auth.guard";
 
 
 export const appRoutes : Routes =[
@@ -15,10 +16,13 @@ export const appRoutes : Routes =[
         children:[{path:'', component:SignUpComponent}]
     },
     {
-        path:'dashboard',component:DashboardComponent,
+        path:'dashboard', canActivate:[AuthGuard], component:DashboardComponent,
         children:[{path:'', component:DashboardComponent}]
     },
     {
         path: '',redirectTo:'/login' ,pathMatch:'full'
-    }
+    },
+    {
+        path: '**',redirectTo:'/login' ,pathMatch:'full'
+    },
 ];

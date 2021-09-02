@@ -108,6 +108,9 @@ export class DashboardComponent implements OnInit {
 
   }
 }
+
+
+
     refreshProductList(){
       this.productService.getProductList().subscribe((res)=>{
         this.productService.products =res as Product[];
@@ -140,6 +143,16 @@ export class DashboardComponent implements OnInit {
       this.refreshProductList()
       document.getElementById("list")?.scrollIntoView({behavior:'smooth'})
     }
+    onLogout(){
+      const lgout = this.userService.logout()
+      if(lgout) 
+        this.router.navigate(['/login'])
+    }
+    preback(){
+      window.history.forward()
+      }
+      // window.setTimeout("preback()" , 0)
+
 }
 
 

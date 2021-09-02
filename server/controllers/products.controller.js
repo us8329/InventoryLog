@@ -17,7 +17,9 @@ const upload = multer({storage: storage }).single('productImage');
 
 
 module.exports.add = async(req,res)=>{
-    const imagePath = 'http://localhost:4000/uploads/' + req.file.filename;
+    // console.log(req.protocol);
+    const uploadUrl = "://localhost:4000/uploads/"
+    const imagePath = req.protocol+ uploadUrl+ req.file.filename;
     const product = new Product({
         username : req.body.username,
         productName : req.body.productName , 
