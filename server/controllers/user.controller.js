@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 const passport = require('passport')
 const _ = require('lodash')
 const { ok } = require('assert')
@@ -26,24 +28,25 @@ module.exports.authenticate = (req,res,next)=>{
     if(err)
       return res.status(400).json(err);
     else if(user) {
-      // token= user.generateJwt();
-      // console.log(token)
-      // return res.status(200).send(token);
-      return res.status(200).send({ "jwt" : user.generateJwt()});
+      const accessToken = jwt.sign({user} , process.env.ACCESS_TOKEN_SECRET)
+      res.json({jwt : accessToken})
+      // return res.status(200).send({ "jwt" : user.generateJwt()});
     }
     else 
-      return res.status(404).json(info)
+      return res.status(404).json(info) 
   })(req,res);
 
 }
 
 module.exports.userProfile = (req,res,next)=>{
-  User.findOne({_id:req._id},
-    (err,user)=>{
-      if(err)
-      if(!user)
-        return res.status(400).json({ status:false , message:"User record not found "});
-      else
-        return res.status(200).json({status:true , user: _.pick(user,['username' , 'email'])})
-    })
+  res.json({User})
+  // res.send(accessToken);
+  // User.findOne({_id:req._id},
+  //   (err,user)=>{
+  //     if(err)
+  //     if(!user)
+  //       return res.status(400).json({ status:false , message:"User record not found "});
+  //     else
+  //       return res.status(200).json({status:true , user: _.pick(user,['username' , 'email'])})
+  //   })
 }

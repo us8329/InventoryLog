@@ -1,8 +1,12 @@
 const express= require('express')
 const mongoose = require('mongoose')
+require('dotenv').config();
 const path = require('path')
 const passport = require('passport')
 const Product = require('../models/products.model')
+const User = require('../models/user.model')
+// const User = mongoose.model('User')
+const jwt = require('jsonwebtoken')
 const multer = require('multer');
 const router = express.Router();
 const jwtHelper = require('../config/jwtHelper')
@@ -28,12 +32,29 @@ const fileFilter = (req, file, cb) => {
     'productImage'
   );
 
+const users= User;
 const ctrlUser = require('../controllers/user.controller')
 const ctrlProduct = require('../controllers/products.controller')
 
 router.post('/register' , ctrlUser.register)
-router.post('/authenticate' , ctrlUser.authenticate)
-router.get('/userprofile' , jwtHelper.verifyJwtToken , ctrlUser.userProfile)
+router.post('/authenticate'  ,ctrlUser.authenticate)
+// router.get('/user', authenticateToken, ctrlUser.userProfile)
+router.get('/userprofile' , authenticateToken, ctrlUser.userProfile)
+
+function authenticateToken(req,res,next){
+  const authHeader = req.headers['authorization']
+  const token =authHeader&&  authHeader.split(' ')[1]
+  if(token==null) 
+    return res.sendStatus(401)
+
+  jwt.verify(token ,process.env.ACCESS_TOKEN_SECRET , (err,user)=>{
+    if(err)
+      return res.sendStatus(403)
+    req.user = user;
+    next();
+  })
+ }
+
 
 router.post('/add' , upload ,ctrlProduct.add)
 
