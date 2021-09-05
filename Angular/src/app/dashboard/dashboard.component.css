@@ -44,3 +44,17 @@ h1{
 select option[disabled]:first-child {
 	display:inherit;
 }
+/* .pagination {
+  display: flex;
+  justify-content: center;
+}
+.ngx-pagination{
+  text-align: center;
+ } */
+ .float-right /deep/ .ngx-pagination .current {
+  background:black;
+
+}
+.cannotedit{
+  color: brown;
+}

@@ -42,19 +42,13 @@ module.exports.add = async(req,res)=>{
 }
 module.exports.update =  async(req,res)=>{
     const id = req.params.id;
-    // console.log(id);
-    // if(!ObjectId.isValid(req.params.id))
-        // return res.status(400).send('No record with given id')
+    console.log(id);
+    if(!ObjectId.isValid(req.params.id))
+        return res.status(400).send('No record with given id')
+    console.log(id);
+    console.log(req.body)
     const imagePath = 'http://localhost:4000/uploads/' + req.file.filename ;
-    const upd = await Product.findByIdAndUpdate(id,{
-        username : req.body.username,
-        productName : req.body.productName , 
-        productType : req.body.productType , 
-        availibilityDate : req.body.availibilityDate , 
-        price : req.body.price , 
-        productImage : imagePath
-        // productImage : null
-     },(err,docs)=>{
+    const upd = await Product.findByIdAndUpdate(id ,req.body ,(err,docs)=>{
         if(!err)
             res.send(docs)
         else console.log('Error in product update')
@@ -84,6 +78,14 @@ module.exports.display = async (req,res,next)=>{
         }
     });
    
+}
+module.exports.getProduct = (req,res,next)=>{
+    const id = req.params.id;
+    Product.findById(id, (err,docs)=>{
+        if(!err)
+            res.send(docs)
+        else  console.log('error in retrieving products')
+    })
 }
 
 module.exports.delete = (req,res,next)=>{

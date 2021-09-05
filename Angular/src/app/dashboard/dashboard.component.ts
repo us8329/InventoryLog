@@ -19,7 +19,9 @@ export class DashboardComponent implements OnInit {
   form? : FormGroup;
   action =  "Add Product"
   p:any;
-  nav_heading="Mean Crud Demo";
+  current_user  = localStorage.getItem('current_user');
+
+  nav_heading="Welcome " + this.current_user;
   showMsg:boolean = false;
   Msg ="Product Added";
   private mode = "create";
@@ -76,37 +78,19 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmit(){
-    // console.log(this.user.email)
-    if(this.mode=="create"){
+
     console.log('adding product')
-    console.log(this.form.value.productImage)
-    this.productService.postProduct(this.form.value.username, this.form.value.productName ,this.form.value.productType , this.form.value.availibilityDate , this.form.value.price , this.form.value.productImage )
+    // console.log(this.form.value.productImage)
+    // console.log(localStorage.getItem('current_user'));
+
+    this.current_user = localStorage.getItem('current_user');
+    this.productService.postProduct(this.current_user, this.form.value.productName ,this.form.value.productType , this.form.value.availibilityDate , this.form.value.price , this.form.value.productImage )
     this.form.reset();
     this.refreshProductList()
     this.imageData = null
     this.showMsg = true;
     // window.setTimeout(function(){location.reload()},3000)
-    }
-    else{
-      this.Msg = "product -" + this.form.value.productName  +" updated"
-      console.log("editing")
-      console.log(this.postId)
-      this.productService.putProduct(
-        this.postId,
-        this.form.value.username,
-        this.form.value.productName ,
-        this.form.value.productType , 
-        this.form.value.availibilityDate , 
-        this.form.value.price , 
-        this.form.value.productImage) 
-      this.form.reset();
-      this.showMsg = true;
-      this.refreshProductList()
-      this.imageData = null
-      // window.location.reload();
-      // window.setTimeout(function(){location.reload()},3000)
-
-  }
+    
 }
 
 
@@ -117,17 +101,17 @@ export class DashboardComponent implements OnInit {
       });
     }
 
-    onEdit(product : Product ){
+  //   onEdit(product : Product ){
 
-      this.action = "Update Product - " + product.productName +"/" + product.productType;
-      this.postId = product._id;
-      // console.log(this.postId)
-      this.productService.selectedProduct = product;
-      this.mode = "edit"
-      if(confirm('Edit product '+ product.productName + "?")==true){
-      document.getElementById("productform")?.scrollIntoView({behavior:'smooth'})
-    }
-  }
+  //     this.action = "Update Product - " + product.productName +"/" + product.productType;
+  //     this.postId = product._id;
+  //     // console.log(this.postId)
+  //     this.productService.selectedProduct = product;
+  //     this.mode = "edit"
+  //     if(confirm('Edit product '+ product.productName + "?")==true){
+  //     document.getElementById("productform")?.scrollIntoView({behavior:'smooth'})
+  //   }
+  // }
     onDelete(product : Product , form:NgForm){
       const id = product._id;
       if(confirm('Are you sure you want to delete product ' + product.productName + "?")==true){

@@ -32,6 +32,7 @@ export class UserService {
 
 
   login(authCredentials: any){
+    localStorage.setItem('current_user' , authCredentials.email)
     return this.http.post(environment.apiBaseUri+'/authenticate' , authCredentials)
     .pipe(
       map((response : Token)=>{

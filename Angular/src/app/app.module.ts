@@ -20,6 +20,7 @@ import { appRoutes } from './routes';
 import { UserService } from './shared/user.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './guard/auth.guard';
+import { EditProductComponent } from './dashboard/edit-product/edit-product.component';
 
 
 
@@ -30,6 +31,7 @@ import { AuthGuard } from './guard/auth.guard';
     SignUpComponent,
     LoginComponent,
     DashboardComponent,
+    EditProductComponent,
 
   ],
   imports: [

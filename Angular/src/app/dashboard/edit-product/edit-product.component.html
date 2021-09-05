@@ -13,10 +13,7 @@
       <a href="login">
         <button (click) = "onLogout()"class="btn btn-secondary">logout </button>
       </a>
-      
-      <!-- <a href = "http://localhost:4200/login" target="_blank">login</a> -->
     </li>
-    <!-- <li class="nav-item">{{current_user}}</li> -->
   </ul>
 </nav>
 <body>
@@ -26,14 +23,14 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">{{action}}</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">Update Product</h5>
       </div>
       <div class="modal-body">
         <form [formGroup]="form" (submit)= "onSubmit()">
-          <!-- <div class="form-group">
+          <div class="form-group">
             <input type="text" class="form-control" formControlName="username">
             <small class="form-text text-muted text-left">username</small>
-        </div> -->
+        </div>
           <div class="form-group">
             <input type="text" class="form-control" formControlName="productName">
             <small class="form-text text-muted text-left">name of product</small>
@@ -72,7 +69,7 @@
           <img [src]="imageData" [alt]="form.value.name" width="100" />
         </div>
         <div class="modal-footer">
-          <button  type="submit" class="btn btn-outline-primary" data-dismiss="modal">Save Product</button>
+          <button  type="submit" class="btn btn-outline-primary" data-dismiss="modal">Update Product</button>
         </div>
 
         <div *ngIf="showMsg">
@@ -87,72 +84,7 @@
           </div>
         </div>
         </form>
-        
-        <div class="modal-footer">
-          <button (click)="toList()" class="btn btn-outline-dark" routerLinkActive="active">Product list</button>
-          </div>
-
   </div>
   </div>
 </div>
 </section>
-</body>
-
-<body >
-<section id="list">
-  <h1 class="buffer">.</h1>
-  <h1>Product List</h1>
-<div class="row">
-    <table  class="table" id="display">
-      <thead>
-        <tr>
-          <!-- <th class="text-center ">Product Id</th> -->
-          <th class="text-center ">Username</th>
-          <th class="text-center ">Product Name</th>
-          <th class="text-center ">Product Type</th>
-          <th class="text-center ">Date of Availibility</th>
-          <th class="text-center ">Price</th>
-          <th class="text-center ">Product Image</th>
-          <th class="text-center ">Action</th>
-        </tr>
-      </thead>
-      <tr *ngFor="let product of productService.products | paginate: {itemsPerPage : 3 , currentPage:p}">
-        <!-- <td>{{product._id}}</td> -->
-        <!-- property binding [property]="value" -->
-        
-        <td>{{product.username}}</td>
-        <td [title] = "product.productName">{{product.productName | uppercase}}</td>
-        <td>{{product.productType | uppercase}}</td>
-        <td>{{product.availibilityDate | date : "dd-mm-yyyy"}}</td>
-        <td>{{product.price | currency : 'INR'}}</td>
-        <!-- <td>{{product.productImage}}</td> -->
-        <td>
-            <img [src]="product.productImage" [alt]="form.value.name" width="80">
-        </td>
-        <td>
-           
-          <ng-template [ngIf]="current_user == product.username" [ngIfElse]="ElseBlock">
-              <a class="action-btn" routerLink="/edit-product/{{product._id}}">
-                  <i class="material-icons">edit</i>
-                </a>
-              <a class="action-btn" style="padding-left: 5px;" (click)="onDelete(product,form.value)">
-                  <i class="material-icons">delete</i>
-                </a>
-          </ng-template>
-
-        </td>
-        <ng-template #ElseBlock>
-          <div [title] = "product.username " class="text-center">
-            <div class="cannotedit">
-              cannot edit product
-            </div>
-          </div>
-        </ng-template>
-      </tr>
-    </table>
-  </div>
-</section>
-<div>
-  <pagination-controls (pageChange)= "p= $event" class="float-right"></pagination-controls>
-</div>
-</body>

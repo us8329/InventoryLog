@@ -39,17 +39,23 @@ const ctrlProduct = require('../controllers/products.controller')
 router.post('/register' , ctrlUser.register)
 router.post('/authenticate'  ,ctrlUser.authenticate)
 // router.get('/user', authenticateToken, ctrlUser.userProfile)
-router.get('/userprofile' , authenticateToken, ctrlUser.userProfile)
+// router.get('/userprofile' , authenticateToken, ctrlUser.userProfile)
+router.get('/currentuser' , authenticateToken , (req,res)=>{
+  // res.send("okay");
+  res.json(Object.values(users).filter(user => user.email ===  req.user.email))
+})
 
 function authenticateToken(req,res,next){
   const authHeader = req.headers['authorization']
+  // console.log(authHeader);
   const token =authHeader&&  authHeader.split(' ')[1]
+  // console.log(token);
   if(token==null) 
-    return res.sendStatus(401)
+    return res.send("no token found")
 
   jwt.verify(token ,process.env.ACCESS_TOKEN_SECRET , (err,user)=>{
     if(err)
-      return res.sendStatus(403)
+      return res.send(err)
     req.user = user;
     next();
   })
@@ -60,8 +66,9 @@ router.post('/add' , upload ,ctrlProduct.add)
 
 router.get('/display' , ctrlProduct.display)
 // router.get('/edit/:id',ctrlProduct.currentproduct )
-router.put('/:id' ,upload , ctrlProduct.update)
+router.put('/:id' , upload ,ctrlProduct.update)
 
+router.get('/:id' , ctrlProduct.getProduct)
 router.delete('/:id' , ctrlProduct.delete)
 module.exports = router;
  

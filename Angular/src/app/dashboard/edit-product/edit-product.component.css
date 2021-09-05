@@ -1,0 +1,57 @@
+.heading{
+    padding-top: 6px;
+  }
+  .userInfo{
+    text-align: center;
+  }
+  .row{
+    padding-top: 40px;
+  }
+  .modal-footer {
+    padding-top: 50px;
+  justify-content: center;
+  }
+  table , th, td{
+    padding-top: 40px;
+  }
+  #display th, #display td{
+    text-align: center;
+  }
+  .btn-sm{
+  color: white;
+  background-color: red;
+  }
+  .modal-dialog{
+    padding-top: 100px;
+  }
+  a{
+    color:black;
+  }
+  .listbtn{
+  padding-top: 10;
+  }
+  h1{
+    text-align: center;
+    font-family:sans-serif
+  }
+  .row{
+    padding-top: 10px;
+  }
+  .buffer{
+    color: white;
+    padding-bottom: 10px;
+  }
+  select option[disabled]:first-child {
+      display:inherit;
+  }
+  /* .pagination {
+    display: flex;
+    justify-content: center;
+  }
+  .ngx-pagination{
+    text-align: center;
+   } */
+   .float-right /deep/ .ngx-pagination .current {
+    background:black;
+  
+  }

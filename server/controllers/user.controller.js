@@ -8,11 +8,12 @@ const { ok } = require('assert')
 
 module.exports.register = (req,res,next)=>{
     var user = new User();
+    user.username = req.body.username;
     user.email = req.body.email;
     user.password = req.body.password;
     user.confirmpassword = req.body.confirmpassword;
     user.save((err,doc)=>{
-      if(!err){
+      if(!err){ 
           res.send(doc);
       }else{
           if(err.code = 11000)
@@ -50,3 +51,4 @@ module.exports.userProfile = (req,res,next)=>{
   //       return res.status(200).json({status:true , user: _.pick(user,['username' , 'email'])})
   //   })
 }
+
