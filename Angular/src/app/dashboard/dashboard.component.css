@@ -1,5 +1,6 @@
 .heading{
   padding-top: 6px;
+  color: rgb(49, 76, 99);
 }
 .userInfo{
   text-align: center;
@@ -57,4 +58,7 @@ select option[disabled]:first-child {
 }
 .cannotedit{
   color: brown;
+}
+input[type=file]::file-selector-button:hover {
+  background-color: grey;
 }

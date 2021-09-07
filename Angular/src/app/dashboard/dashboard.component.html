@@ -98,10 +98,11 @@
 </section>
 </body>
 
-<body >
+<body>
 <section id="list">
   <h1 class="buffer">.</h1>
   <h1>Product List</h1>
+
 <div class="row">
     <table  class="table" id="display">
       <thead>
@@ -119,7 +120,6 @@
       <tr *ngFor="let product of productService.products | paginate: {itemsPerPage : 3 , currentPage:p}">
         <!-- <td>{{product._id}}</td> -->
         <!-- property binding [property]="value" -->
-        
         <td>{{product.username}}</td>
         <td [title] = "product.productName">{{product.productName | uppercase}}</td>
         <td>{{product.productType | uppercase}}</td>
@@ -151,8 +151,9 @@
       </tr>
     </table>
   </div>
+
 </section>
+<pagination-controls (pageChange)= "p= $event" class="float-right"></pagination-controls>
 <div>
-  <pagination-controls (pageChange)= "p= $event" class="float-right"></pagination-controls>
 </div>
 </body>

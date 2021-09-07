@@ -101,18 +101,18 @@ export class ProductService {
   putProduct(_id : any , data:any){
     const id = _id;
     console.log(data)
-    // console.log(environment.apiBaseUri+'%/'+id , data)
+    console.log(environment.apiBaseUri+'/'+id , data)
     return this.http.put(environment.apiBaseUri+'/'+id , data)
   }
 
   getProductById(_id :any){
     const id = _id;
-    console.log(environment.apiBaseUri+'/'+id)
+    // console.log(environment.apiBaseUri+'/'+id)
     return this.http.get(environment.apiBaseUri+'/'+id)
   }
   deleteproduct(_id:String){
     const id = _id;
-    // console.log(environment.apiBaseUri+'/'+id);
+    console.log(environment.apiBaseUri+'/'+id);
     return this.http.delete(environment.apiBaseUri+'/'+id)
   }
 }

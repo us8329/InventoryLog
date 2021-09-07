@@ -20,8 +20,8 @@ export class DashboardComponent implements OnInit {
   action =  "Add Product"
   p:any;
   current_user  = localStorage.getItem('current_user');
-
-  nav_heading="Welcome " + this.current_user;
+  // username  = this.current_user.split('@')[0];
+  nav_heading="user : " + this.current_user;
   showMsg:boolean = false;
   Msg ="Product Added";
   private mode = "create";
@@ -85,11 +85,12 @@ export class DashboardComponent implements OnInit {
 
     this.current_user = localStorage.getItem('current_user');
     this.productService.postProduct(this.current_user, this.form.value.productName ,this.form.value.productType , this.form.value.availibilityDate , this.form.value.price , this.form.value.productImage )
+    
     this.form.reset();
     this.refreshProductList()
     this.imageData = null
     this.showMsg = true;
-    // window.setTimeout(function(){location.reload()},3000)
+    window.setTimeout(function(){location.reload()},3000)
     
 }
 

@@ -45,9 +45,9 @@ module.exports.update =  async(req,res)=>{
     console.log(id);
     if(!ObjectId.isValid(req.params.id))
         return res.status(400).send('No record with given id')
-    console.log(id);
     console.log(req.body)
-    const imagePath = 'http://localhost:4000/uploads/' + req.file.filename ;
+    
+    // const imagePath = 'http://localhost:4000/uploads/' + req.file.filename ;
     const upd = await Product.findByIdAndUpdate(id ,req.body ,(err,docs)=>{
         if(!err)
             res.send(docs)

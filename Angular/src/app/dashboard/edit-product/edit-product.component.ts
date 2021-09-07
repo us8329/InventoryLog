@@ -70,14 +70,25 @@ export class EditProductComponent implements OnInit {
   onSubmit(){
       this.Msg = "product -" + this.form.value.productName  +" updated"
       console.log("editing")
+      console.log(this.route.snapshot.params.id)
       console.log(this.form.value)
+      // const product: Product = {
+      //   _id: this.route.snapshot.params.id ,
+      //   username : this.form.value.username,
+      //   productName: this.form.value.productName,
+      //   productType: this.form.value.productType,
+      //   availibilityDate : this.form.value.availibilityDate,
+      //   price : this.form.value.price , 
+      //   productImage: this.form.value.productImage
+      // };
+      // console.log(product);
       this.productService.putProduct(this.route.snapshot.params.id ,this.form.value)
       // .subscribe((result)=>{
         // console.log(result)
       // })
       this.router.navigateByUrl('/dashboard')
       this.form.reset();
-      this.showMsg = true;
+      // this.showMsg = true;
       this.refreshProductList()
       this.imageData = null 
 }
