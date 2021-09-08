@@ -55,3 +55,10 @@
     background:black;
   
   }
+  input[type=file]::file-selector-button{
+    border-radius: 13px;
+  }
+  input[type=file]::file-selector-button:hover {
+    background-color: rgb(172, 166, 166);
+    color: white;
+  }

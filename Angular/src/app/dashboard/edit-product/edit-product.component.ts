@@ -15,7 +15,7 @@ export class EditProductComponent implements OnInit {
   action =  "Add Product"
   p:any;
   current_user  = localStorage.getItem('current_user');
-  nav_heading="Welcome " + this.current_user;
+  nav_heading="user : " + this.current_user;
   showMsg:boolean = false;
   Msg ="Product Added";
   private mode = "create";
