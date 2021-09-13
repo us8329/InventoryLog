@@ -120,7 +120,13 @@
       <tr *ngFor="let product of productService.products | paginate: {itemsPerPage : 3 , currentPage:p}">
         <!-- <td>{{product._id}}</td> -->
         <!-- property binding [property]="value" -->
-        <td>{{product.username}}</td>
+
+        <ng-template [ngIf]="current_user == product.username" [ngIfElse]="ElseBlock1">
+          <td style="color: green">{{product.username}}</td>
+        </ng-template>
+        <ng-template #ElseBlock1>
+          <td>{{product.username}}</td>
+        </ng-template>
         <td [title] = "product.productName">{{product.productName | uppercase}}</td>
         <td>{{product.productType | uppercase}}</td>
         <td>{{product.availibilityDate | date : "dd-mm-yyyy"}}</td>
@@ -131,7 +137,7 @@
         </td>
         <td>
            
-          <ng-template [ngIf]="current_user == product.username" [ngIfElse]="ElseBlock">
+          <ng-template [ngIf]="current_user == product.username" [ngIfElse]="ElseBlock2">
               <a class="action-btn" routerLink="/edit-product/{{product._id}}">
                   <i class="material-icons">edit</i>
                 </a>
@@ -141,7 +147,7 @@
           </ng-template>
 
         </td>
-        <ng-template #ElseBlock>
+        <ng-template #ElseBlock2>
           <div [title] = "product.username " class="text-center">
             <div class="cannotedit">
               cannot edit product

@@ -72,17 +72,8 @@ export class EditProductComponent implements OnInit {
       console.log("editing")
       console.log(this.route.snapshot.params.id)
       console.log(this.form.value)
-      // const product: Product = {
-      //   _id: this.route.snapshot.params.id ,
-      //   username : this.form.value.username,
-      //   productName: this.form.value.productName,
-      //   productType: this.form.value.productType,
-      //   availibilityDate : this.form.value.availibilityDate,
-      //   price : this.form.value.price , 
-      //   productImage: this.form.value.productImage
-      // };
-      // console.log(product);
-      this.productService.putProduct(this.route.snapshot.params.id ,this.form.value)
+
+      this.productService.putProduct(this.route.snapshot.params.id ,this.form.value.username ,this.form.value.productName ,this.form.value.productType , this.form.value.availibilityDate , this.form.value.price , this.form.value.productImage)
       // .subscribe((result)=>{
         // console.log(result)
       // })

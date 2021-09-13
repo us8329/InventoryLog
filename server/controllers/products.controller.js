@@ -45,13 +45,25 @@ module.exports.update =  async(req,res)=>{
     console.log(id);
     if(!ObjectId.isValid(req.params.id))
         return res.status(400).send('No record with given id')
+
+    const uploadUrl = "://localhost:4000/uploads/"        
+    const imagePath = req.protocol+ uploadUrl+ req.file.filename;
+    // const product = new Product({
+    //     username : req.body.username,
+    //     productName : req.body.productName , 
+    //     productType : req.body.productType , 
+    //     availibilityDate : req.body.availibilityDate , 
+    //     price : req.body.price , 
+    //     productImage : imagePath
+    //  });
+    req.body.productImage = imagePath
     console.log(req.body)
     
-    // const imagePath = 'http://localhost:4000/uploads/' + req.file.filename ;
-    const upd = await Product.findByIdAndUpdate(id ,req.body ,(err,docs)=>{
+   
+    const upd = await Product.findByIdAndUpdate(id ,req.body,(err,docs)=>{
         if(!err)
             res.send(docs)
-        else console.log('Error in product update')
+        else console.log(err)
     });
 }
 module.exports.currentproduct = (req,res,next)=>{
